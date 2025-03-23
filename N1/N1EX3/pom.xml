@@ -5,18 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org</groupId>
-        <artifactId>S1.04-Testing</artifactId>
+        <artifactId>N1</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>N1</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>N1Ex1</module>
-        <module>N1-2</module>
-        <module>N1EX3</module>
-    </modules>
+    <artifactId>N1EX3</artifactId>
 
     <properties>
         <maven.compiler.source>23</maven.compiler.source>
