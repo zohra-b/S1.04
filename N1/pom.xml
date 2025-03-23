@@ -14,6 +14,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>N1Ex1</module>
+        <module>N1-2</module>
     </modules>
 
     <properties>
