@@ -4,7 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,10 +20,17 @@ class BooksManagerTest {
         Book b1 = new Book("Author1" , "Title1");
         Book b2 = new Book("Author2" , "Title2");
         Book b3 = new Book("Author3" , "Title3");
+        Book b4 = new Book("Author3" , "Title3");
         newList.add(b1);
         newList.add(b2);
         newList.add(b3);
+        newList.add(b4);
         myBookManager.addBooks(newList);
+    }
+
+    @Test
+    void isNotNull(){
+        assertNotNull(myBookManager, "The list shoudn\'t be null");
     }
 
     @Test
@@ -35,10 +44,41 @@ class BooksManagerTest {
         }
     }
 
-
+    @Test
+    void hasTheRightSize(){
+        myBookManager.addBook("Name Surname", "Title" );
+        List<Book> booksList = myBookManager.getBooks();
+        assertEquals(4, booksList.size(), "the arrayList should have a size of 4");
+    }
 
     @Test
-    void addBook() {
+    void findBookAtIndex() {
+        myBookManager.addBookAt(1, "New Author", "New Book");
+        List<Book> booksList = myBookManager.getBooks();
+        assertEquals(4, booksList.size(), "\"the arrayList should have a size of 4");
+        assertAll("Book added at index 1",
+                () -> assertEquals("New Author", booksList.get(1).getAuthor()),
+                () -> assertEquals("New Book", booksList.get(1).getTitle())
+        );
+    }
+
+    @Test
+    void hasNoDuplicateTitle(){
+        List<Book> booksList = myBookManager.getBooks();
+        Set<Book> setOfBooks = new HashSet<>(booksList) ;
+        assertEquals(booksList.size(), setOfBooks.size());
+    }
+
+    @Test
+    void getTitleByIndex() {
+        List<Book> booksList = myBookManager.getBooks();
+        myBookManager.getTitleByIndex(1);
+        assertEquals("Author2", booksList.get(1).getAuthor(), "The author should be \"Author2\"");
+        assertEquals("Title2", booksList.get(1).getTitle(), "The author should be \"Title2\"");
+    }
+
+    @Test
+    void addingBookModifiesList() {
         myBookManager.addBook("Name Surname", "Title" );
         List<Book> booksList = myBookManager.getBooks();
         assertEquals(4, booksList.size(), "the arrayList should have a size of 4");
@@ -64,19 +104,10 @@ class BooksManagerTest {
         assertEquals("Title4", booksList.get(3).getTitle(), "The author should be \"Title4\"");
     }
 
-    @Test
-    void addBookAt() {
-        myBookManager.addBookAt(1, "New Author", "New Book");
-        List<Book> booksList = myBookManager.getBooks();
-        assertEquals(4, booksList.size(), "\"the arrayList should have a size of 4");
-        assertAll("Book added at index 1",
-                () -> assertEquals("New Author", booksList.get(1).getAuthor()),
-                () -> assertEquals("New Book", booksList.get(1).getTitle())
-        );
-    }
+
 
     @Test
-    void removeBookByTitle() {
+    void removingBookChangesListSize() {
         myBookManager.removeBookByTitle("Title3");
         List<Book> booksList = myBookManager.getBooks();
         assertEquals(2, booksList.size(), "\"the arrayList should have a size of 2");
@@ -84,10 +115,12 @@ class BooksManagerTest {
     }
 
     @Test
-    void getTitleByIndex() {
+    void listIsSorted(){
         List<Book> booksList = myBookManager.getBooks();
-        myBookManager.getTitleByIndex(1);
-        assertEquals("Author2", booksList.get(1).getAuthor(), "The author should be \"Author2\"");
-        assertEquals("Title2", booksList.get(1).getTitle(), "The author should be \"Title2\"");
+        myBookManager.addBookAt(0, "Zoe Valdes", "La piscina");
+        myBookManager.addBook("Bourdieu", "La reproduction Sociale");
+        assertEquals("Author1", booksList.getFirst().getAuthor() );
+        assertEquals("Zoe Valdes" , booksList.getLast().getAuthor() );
+
     }
 }

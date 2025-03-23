@@ -1,8 +1,6 @@
 package org.books_manager;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 
 public class BooksManager {
@@ -12,16 +10,37 @@ public class BooksManager {
         this.books = new ArrayList<>();
     }
 
+    public Comparator<Book> SORT_BY_AUTHOR = new Comparator<Book>() {
+        @Override
+        public int compare(Book o1, Book o2) {
+            return o1.getAuthor().compareTo(o2.getAuthor());
+        }
+    };
+
+    public void setSORT_BY_AUTHOR(){
+        Collections.sort(this.books, SORT_BY_AUTHOR);
+    }
+
     public List<Book> getBooks(){
         return this.books;
     }
 
     public void addBook(String author, String title){
-        books.add(new Book(author, title) )  ;
-    }
+            if (books.contains(new Book(author, title))){
+                System.out.print("This book already exists");
+            } else{
+                books.add(new Book(author, title));
+                setSORT_BY_AUTHOR();
+            }
+        }
 
-    public void addBooks(List<Book> newListOfBooks){
-        books.addAll(newListOfBooks);
+    public void addBooks(List<Book> newListOfBooks) {
+        for (Book newBook : newListOfBooks) {
+            if (!books.contains(newBook))
+                books.add(newBook);
+        }
+        setSORT_BY_AUTHOR();
+
     }
 
     public void addBookAt(int i , String author, String title ){
