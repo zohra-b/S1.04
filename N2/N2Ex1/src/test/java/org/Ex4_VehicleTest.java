@@ -55,7 +55,7 @@ public class Ex4_VehicleTest {
     }
 
     @Test
-    void objetAddedOnce(){
+    void objectAddedOnce(){
         myVehicles.add(moto1);
         myVehicles.add(bicy1);
         myVehicles.add(car1);
@@ -72,5 +72,5 @@ public class Ex4_VehicleTest {
         assertFalse(myVehicles.contains(moto2));
     }
 
-    //Verifica que, en la llista anterior, un dels objectes s'ha afegit només una vegada. Deixa un dels elements sense afegir, i verifica que la llista no conté aquest últim.
+
 }

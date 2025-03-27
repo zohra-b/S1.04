@@ -20,7 +20,7 @@ public class ArrayOfStrings {
 
     }
     public void setString(int i, String string){
-        ArrayOfStrings[i] = "string";
+        ArrayOfStrings[i] = string;
     }
 
 }
